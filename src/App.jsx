@@ -62,7 +62,7 @@ export default function App() {
 
   const isChapterUnlocked = () => true;
   
-  const { user, signIn, signOut } = useAuth();
+
 
   const handleLoginSuccess = async (email, password) => {
     try {
