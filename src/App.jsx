@@ -1,6 +1,7 @@
 // Main App entrypoint containing 4-layer background engine, custom cursor tracking, and floating capsule navbar
 import React, { useState, useEffect, useRef } from 'react';
 import { useAppState } from './hooks/useAppState';
+import { useAuth } from './hooks/useSupabaseAuth';
 import { useFlashcards } from './hooks/useFlashcards';
 import AuthPortal from './components/auth/AuthPortal';
 import DashboardView from './components/dashboard/DashboardView';
@@ -25,19 +26,21 @@ const BACKGROUND_SNIPPETS = [
 ];
 
 export default function App() {
-  const { 
-    user, 
-    login, 
-    logout, 
-    updateStreak, 
-    completeLesson, 
-    saveQuizScore, 
-    completeChallenge, 
-    saveNote, 
-    toggleBookmark, 
+  const {
+    // keep other app state functions, but remove mock user handling
+    // user, // removed – Supabase provides auth user
+    // login, // removed – Supabase handles login
+    // logout, // removed – Supabase handles logout
+    updateStreak,
+    completeLesson,
+    saveQuizScore,
+    completeChallenge,
+    saveNote,
+    toggleBookmark,
     awardAchievement,
-    achievementsList 
+    achievementsList
   } = useAppState();
+  const { user: authUser, signIn, signOut } = useAuth();
 
   const { cards, getDueCards } = useFlashcards();
   const [theme, setTheme] = useState('dark');
@@ -179,17 +182,17 @@ export default function App() {
 
   // Sync user details
   useEffect(() => {
-    if (user.isLoggedIn) {
+    if (authUser) {
       updateStreak();
     }
-  }, [user.isLoggedIn]);
+  }, [authUser]);
 
   // Auto redirect logged in user to dashboard if they land on login
   useEffect(() => {
-    if (user.isLoggedIn && activePage === 'login') {
+    if (authUser && activePage === 'login') {
       setActivePage('dashboard');
     }
-  }, [user.isLoggedIn, activePage]);
+  }, [authUser, activePage]);
 
   // Synchronize CSS themes
   useEffect(() => {
