@@ -1,7 +1,8 @@
 // Main App entrypoint containing 4-layer background engine, custom cursor tracking, and floating capsule navbar
 import React, { useState, useEffect, useRef } from 'react';
 import { useAppState } from './hooks/useAppState';
-import { useAuth } from './hooks/useSupabaseAuth';
+import { useAuth } from './hooks/useSupabaseAuth.jsx';
+
 import { useFlashcards } from './hooks/useFlashcards';
 import AuthPortal from './components/auth/AuthPortal';
 import DashboardView from './components/dashboard/DashboardView';
