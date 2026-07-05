@@ -770,7 +770,7 @@ export default function App() {
 
         {/* LOGIN / AUTH PORTAL */}
         {activePage === 'login' && !user.isLoggedIn && (
-          <AuthPortal onLoginSuccess={handleLoginSuccess} />
+          <AuthPortal />
         )}
 
         {/* Split Grid Layout for Dashboard and Study Portals */}
