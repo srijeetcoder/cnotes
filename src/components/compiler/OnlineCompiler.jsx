@@ -254,11 +254,11 @@ int main() {
       </div>
 
       {/* Main Grid: Left Sidebar | Code Editor */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <div className="compiler-main-layout" style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
         
         {/* Left Sidebar (File Explorer) */}
         {showExplorer && (
-          <div style={{ width: '220px', minWidth: '220px', height: '100%' }}>
+          <div className="compiler-explorer-sidebar" style={{ width: '220px', minWidth: '220px', height: '100%' }}>
             <FileExplorer 
               currentCode={code} 
               onSelectFile={setCode} 
@@ -268,7 +268,7 @@ int main() {
         )}
 
         {/* Center Workspace (Editor + Bottom Terminal Split) */}
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, height: '100%', overflow: 'hidden' }}>
+        <div className="compiler-editor-workspace" style={{ display: 'flex', flexDirection: 'column', flex: 1, height: '100%', overflow: 'hidden' }}>
           
           {/* Main Code Editor Panel */}
           <div style={{ flex: 1, overflow: 'hidden' }}>
@@ -284,7 +284,7 @@ int main() {
 
           {/* Bottom Console / Terminal panel */}
           {showTerminal && (
-            <div style={{ height: '260px', minHeight: '260px' }}>
+            <div className="compiler-terminal-container" style={{ height: '260px', minHeight: '260px' }}>
               <Terminal
                 consoleLogs={consoleLogs}
                 errors={errorsList}

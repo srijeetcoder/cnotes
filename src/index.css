@@ -503,3 +503,84 @@ button:active, .btn:active {
 .animate-fade {
   animation: fadeUp 0.3s ease-out;
 }
+
+/* ==========================================
+   RESPONSIVE DESIGN SYSTEM (MOBILE & TABLET)
+   ========================================== */
+
+@media (max-width: 1024px) {
+  nav {
+    margin: 1rem !important;
+    padding: 0.5rem 1.25rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Page Padding & Spacing */
+  .main-content-portal {
+    padding: 1rem 1rem 2.5rem 1rem !important;
+  }
+
+  /* Grid Layouts Stack Vertically */
+  .portal-layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Hero Typography */
+  .hero-title {
+    font-size: 2.2rem !important;
+    line-height: 1.25 !important;
+  }
+
+  /* Slider Card Adjustments */
+  .carousel-slide-card {
+    width: 300px !important;
+    padding: 1.25rem !important;
+  }
+
+  /* C-IDE Main Workspace & Panels */
+  .compiler-main-layout {
+    flex-direction: column !important;
+  }
+  
+  .compiler-explorer-sidebar {
+    display: none !important;
+  }
+
+  .compiler-terminal-container {
+    height: 220px !important;
+    min-height: 220px !important;
+  }
+
+  /* Adjust Editor Box Sizing */
+  .code-editor-container {
+    height: 350px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Dynamic Glass Panel Padding Reduction */
+  .glass-panel {
+    padding: 1.25rem !important;
+  }
+
+  /* Active slider card gets even smaller */
+  .carousel-slide-card {
+    width: 270px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Compact Pill Navbar */
+  .nav-label {
+    display: none !important;
+  }
+  .nav-tab-btn {
+    padding: 0.5rem 0.75rem !important;
+  }
+  nav {
+    border-radius: 20px !important;
+  }
+}
+

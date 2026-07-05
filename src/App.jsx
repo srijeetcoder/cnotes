@@ -415,7 +415,7 @@ export default function App() {
               <button
                 key={tab.id}
                 onClick={() => setActivePage(tab.id)}
-                className="btn"
+                className="btn nav-tab-btn"
                 style={{
                   padding: '0.4rem 1rem',
                   fontSize: '0.75rem',
@@ -424,7 +424,7 @@ export default function App() {
                   color: activePage === tab.id ? '#FFFFFF' : 'var(--text-muted)'
                 }}
               >
-                {tab.icon} {tab.label}
+                {tab.icon} <span className="nav-label">{tab.label}</span>
               </button>
             ))}
           </div>
@@ -492,7 +492,7 @@ export default function App() {
       </nav>
 
       {/* CORE WORKSPACE PORTAL */}
-      <main style={{ flex: 1, padding: '1rem 3.5rem 3.5rem 3.5rem' }}>
+      <main className="main-content-portal" style={{ flex: 1 }}>
         
         {/* PREMIUM KEYNOTE LANDING PAGE */}
         {activePage === 'landing' && (
@@ -521,7 +521,7 @@ export default function App() {
                 WWDC 2026 Developer Aesthetic
               </span>
               
-              <h2 style={{ fontSize: '4rem', fontWeight: '800', lineHeight: '1.05', letterSpacing: '-0.04em' }}>
+              <h2 className="hero-title">
                 Master C Programming from <br/>
                 <span className="glow-blue" style={{ fontWeight: '900' }}>Zero</span> to <span className="glow-purple-gradient">Placement Ready</span>
               </h2>
@@ -635,11 +635,9 @@ export default function App() {
                     return (
                       <div 
                         key={idx}
-                        className="glass-panel"
+                        className="glass-panel carousel-slide-card"
                         style={{
                           position: 'absolute',
-                          width: '380px',
-                          padding: '2rem',
                           textAlign: 'center',
                           display: 'flex',
                           flexDirection: 'column',
@@ -775,7 +773,7 @@ export default function App() {
 
         {/* Split Grid Layout for Dashboard and Study Portals */}
         {user.isLoggedIn && (activePage === 'dashboard' || activePage === 'study') && (
-          <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '2.5rem' }} className="animate-fade">
+          <div className="portal-layout-grid animate-fade">
             
             {/* Persistent Chapters Sidebar on the left */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
