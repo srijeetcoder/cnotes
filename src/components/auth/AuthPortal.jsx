@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { User, Mail, Lock, ShieldCheck, ArrowRight, ShieldAlert } from 'lucide-react';
 
-export default function AuthPortal({ onLoginSuccess, onDevBypass }) {
+export default function AuthPortal({ onLoginSuccess }) {
   const [activeScreen, setActiveScreen] = useState('login'); // login | register | forgot | verify
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -221,18 +221,7 @@ export default function AuthPortal({ onLoginSuccess, onDevBypass }) {
           </button>
         </form>
 
-        {/* Developer Skip Bypass Trigger */}
-        {activeScreen === 'login' && (
-          <div style={{ marginTop: '1rem', borderTop: '1px dashed var(--glass-border)', paddingTop: '1.25rem' }}>
-            <button 
-              className="btn btn-outline" 
-              onClick={onDevBypass}
-              style={{ width: '100%', padding: '0.75rem', fontSize: '0.8rem', display: 'flex', gap: '0.4rem', borderStyle: 'dashed', borderColor: 'var(--color-secondary)' }}
-            >
-              <ShieldAlert size={14} color="var(--color-secondary)" /> Skip Login (Developer Mode)
-            </button>
-          </div>
-        )}
+
 
         {/* Navigation toggles */}
         <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>

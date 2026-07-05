@@ -235,10 +235,6 @@ export default function App() {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
-  const handleDevBypass = () => {
-    login("DevMaster", "developer@makaut.edu");
-    setActivePage('dashboard');
-  };
 
   const dueCards = getDueCards();
 
@@ -448,13 +444,6 @@ export default function App() {
             </div>
           ) : (
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button 
-                className="btn btn-outline" 
-                onClick={handleDevBypass}
-                style={{ padding: '0.4rem 0.8rem', fontSize: '0.75rem', display: 'flex', gap: '0.25rem', borderColor: 'var(--color-secondary)' }}
-              >
-                <ShieldAlert size={12} color="var(--color-secondary)" /> Skip Login (Dev)
-              </button>
               <button 
                 className="btn btn-primary" 
                 onClick={() => setActivePage('login')}
@@ -781,7 +770,7 @@ export default function App() {
 
         {/* LOGIN / AUTH PORTAL */}
         {activePage === 'login' && !user.isLoggedIn && (
-          <AuthPortal onLoginSuccess={handleLoginSuccess} onDevBypass={handleDevBypass} />
+          <AuthPortal onLoginSuccess={handleLoginSuccess} />
         )}
 
         {/* Split Grid Layout for Dashboard and Study Portals */}
