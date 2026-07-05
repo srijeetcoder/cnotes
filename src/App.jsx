@@ -28,10 +28,9 @@ const BACKGROUND_SNIPPETS = [
 
 export default function App() {
   const {
-    // keep other app state functions, but remove mock user handling
-    // user, // removed – Supabase provides auth user
-    // login, // removed – Supabase handles login
-    // logout, // removed – Supabase handles logout
+    user,
+    login,
+    logout,
     updateStreak,
     completeLesson,
     saveQuizScore,
@@ -65,9 +64,23 @@ export default function App() {
   
 
 
+  // Synchronize Supabase authentication state with the local AppState user
+  useEffect(() => {
+    if (authUser) {
+      if (!user.isLoggedIn) {
+        login(authUser.email.split('@')[0], authUser.email);
+      }
+    } else {
+      if (user.isLoggedIn) {
+        logout();
+      }
+    }
+  }, [authUser, user.isLoggedIn]);
+
   const handleLoginSuccess = async (email, password) => {
     try {
       await signIn(email, password);
+      login(email.split('@')[0], email);
       setActivePage('dashboard');
     } catch (err) {
       alert('Login failed: ' + err.message);
@@ -75,8 +88,15 @@ export default function App() {
   };
 
   const handleLogoutClick = async () => {
-    await signOut();
-    setActivePage('landing');
+    try {
+      await signOut();
+      logout();
+      setActivePage('landing');
+    } catch (err) {
+      console.error('Logout error:', err);
+      logout();
+      setActivePage('landing');
+    }
   };  
   // Custom Cursor Tracker State
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -183,17 +203,17 @@ export default function App() {
 
   // Sync user details
   useEffect(() => {
-    if (authUser) {
+    if (user.isLoggedIn) {
       updateStreak();
     }
-  }, [authUser]);
+  }, [user.isLoggedIn]);
 
   // Auto redirect logged in user to dashboard if they land on login
   useEffect(() => {
-    if (authUser && activePage === 'login') {
+    if (user.isLoggedIn && activePage === 'login') {
       setActivePage('dashboard');
     }
-  }, [authUser, activePage]);
+  }, [user.isLoggedIn, activePage]);
 
   // Synchronize CSS themes
   useEffect(() => {
