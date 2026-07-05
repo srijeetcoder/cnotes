@@ -1,4 +1,4 @@
-// src/hooks/useSupabaseAuth.js
+// src/hooks/useSupabaseAuth.jsx
 import { useState, useEffect, createContext, useContext } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
@@ -18,31 +18,42 @@ function useProvideAuth() {
 
   // Listen for auth changes – handles session persistence
   useEffect(() => {
+    // If Supabase is not configured, mark as not loading and return
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
       setLoading(false);
     });
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       setLoading(false);
     });
+
     return () => {
-      listener?.unsubscribe();
+      listener?.subscription?.unsubscribe();
     };
   }, []);
 
   const signUp = async (email, password) => {
+    if (!supabase) throw new Error('Auth not configured');
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
   };
 
   const signIn = async (email, password) => {
+    if (!supabase) throw new Error('Auth not configured');
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
   };
 
   const signOut = async () => {
+    if (!supabase) return;
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     setUser(null);
