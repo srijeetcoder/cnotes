@@ -22,7 +22,7 @@
 
   --text-primary: #FFFFFF;
   --text-muted: #8B8B8B;
-  --bg-code-text: #CE9178;
+  --bg-code-text: #E8C5C8;
 
   /* Glassmorphism configs - Smoked Black Glass */
   --glass-bg: rgba(17, 17, 17, 0.55);
@@ -448,13 +448,13 @@ button:active, .btn:active {
 }
 
 /* Reddish-Black VS Code Syntax Highlights */
-.syntax-kw { color: #E53E3E; font-weight: bold; }
-.syntax-str { color: #FEB2B2; }
-.syntax-num { color: #FC8181; }
-.syntax-comment { color: #7A2828; font-style: italic; }
-.syntax-ln { color: #4A151B; margin-right: 12px; user-select: none; }
-.syntax-fn { color: #FF4B5C; }
-.syntax-type { color: #FEB2B2; }
+.syntax-kw { color: #FF5A6D; font-weight: bold; }
+.syntax-str { color: #FFA8B6; }
+.syntax-num { color: #FF8F9F; }
+.syntax-comment { color: #A63A4B; font-style: italic; }
+.syntax-ln { color: #6A202E; margin-right: 12px; user-select: none; }
+.syntax-fn { color: #FF7A8E; }
+.syntax-type { color: #FFB8C4; }
 
 /* Premium WWDC Switch Redesigned */
 .theme-switch-container {
