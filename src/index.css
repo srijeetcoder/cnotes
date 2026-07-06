@@ -408,7 +408,7 @@ button:active, .btn:active {
   background: #B11226;
 }
 
-/* Endless Scrolling Background Code Columns - Matte Normal VS Code Scroll */
+/* Endless Scrolling Background Code Columns - Reddish-Black VS Code Theme */
 .bg-code-scroll-container {
   position: absolute;
   top: 0;
@@ -419,33 +419,27 @@ button:active, .btn:active {
   overflow: hidden;
   display: flex;
   justify-content: space-around;
-  opacity: 0.04;
+  opacity: 0.22;
 }
 
 .bg-code-column {
   width: 320px;
   font-family: var(--font-code);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   line-height: 1.6;
   white-space: pre;
   display: flex;
   flex-direction: column;
-  animation: scrollBackgroundCode 120s linear infinite, fluctuateOpacity 20s infinite ease-in-out;
+  animation: scrollBackgroundCode 65s linear infinite;
   color: var(--bg-code-text);
 }
 
-.bg-code-column:nth-child(1) {
-  animation-duration: 120s, 20s;
-}
-.bg-code-column:nth-child(2) {
-  animation-duration: 150s, 25s;
-}
-.bg-code-column:nth-child(3) {
-  animation-duration: 100s, 18s;
+.bg-code-column-reverse {
+  animation: scrollBackgroundCode 75s linear infinite reverse;
 }
 
-.bg-code-column-reverse {
-  animation-direction: reverse, normal;
+.bg-code-column-fast {
+  animation: scrollBackgroundCode 50s linear infinite;
 }
 
 @keyframes scrollBackgroundCode {
@@ -453,19 +447,14 @@ button:active, .btn:active {
   100% { transform: translateY(-50%); }
 }
 
-@keyframes fluctuateOpacity {
-  0%, 100% { opacity: 0.04; }
-  50% { opacity: 0.08; }
-}
-
-/* Syntax colors for background scroll code */
-.syntax-kw { color: #569cd6; font-weight: 500; }
-.syntax-str { color: #ce9178; }
-.syntax-num { color: #b5cea8; }
-.syntax-comment { color: #6a9955; font-style: italic; }
-.syntax-ln { color: #404040; margin-right: 12px; user-select: none; }
-.syntax-fn { color: #dcdcaa; }
-.syntax-type { color: #4ec9b0; }
+/* Reddish-Black VS Code Syntax Highlights */
+.syntax-kw { color: #E53E3E; font-weight: bold; }
+.syntax-str { color: #FEB2B2; }
+.syntax-num { color: #FC8181; }
+.syntax-comment { color: #7A2828; font-style: italic; }
+.syntax-ln { color: #4A151B; margin-right: 12px; user-select: none; }
+.syntax-fn { color: #FF4B5C; }
+.syntax-type { color: #FEB2B2; }
 
 /* Premium WWDC Switch Redesigned */
 .theme-switch-container {
