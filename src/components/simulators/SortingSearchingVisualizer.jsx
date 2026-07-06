@@ -120,14 +120,14 @@ int binarySearch(int arr[], int l, int r, int target) {
 };
 
 const PALETTES = [
-  { bg: "linear-gradient(to top, #3b82f6, #60a5fa)", border: "#3b82f6", glow: "rgba(59, 130, 246, 0.4)", text: "#93c5fd" }, // Blue
-  { bg: "linear-gradient(to top, #10b981, #34d399)", border: "#10b981", glow: "rgba(16, 185, 129, 0.4)", text: "#6ee7b7" }, // Emerald
-  { bg: "linear-gradient(to top, #8b5cf6, #a78bfa)", border: "#8b5cf6", glow: "rgba(139, 92, 246, 0.4)", text: "#c4b5fd" }, // Violet
-  { bg: "linear-gradient(to top, #ec4899, #f472b6)", border: "#ec4899", glow: "rgba(236, 72, 153, 0.4)", text: "#f9a8d4" }, // Pink
-  { bg: "linear-gradient(to top, #f97316, #fb923c)", border: "#f97316", glow: "rgba(249, 115, 22, 0.4)", text: "#fdba74" }, // Orange
-  { bg: "linear-gradient(to top, #06b6d4, #67e8f9)", border: "#06b6d4", glow: "rgba(6, 182, 212, 0.4)", text: "#67e8f9" }, // Cyan
-  { bg: "linear-gradient(to top, #84cc16, #a3e635)", border: "#84cc16", glow: "rgba(132, 204, 22, 0.4)", text: "#d9f99d" }, // Lime
-  { bg: "linear-gradient(to top, #e11d48, #fb7185)", border: "#e11d48", glow: "rgba(225, 29, 72, 0.4)", text: "#fda4af" }  // Rose
+  { bg: "linear-gradient(to top, rgba(139, 0, 0, 0.25), rgba(139, 0, 0, 0.4))", border: "rgba(139, 0, 0, 0.6)", glow: "rgba(139, 0, 0, 0.3)", text: "#ffa3a3" }, // Crimson Glass
+  { bg: "linear-gradient(to top, rgba(94, 15, 24, 0.3), rgba(94, 15, 24, 0.5))", border: "rgba(94, 15, 24, 0.7)", glow: "rgba(94, 15, 24, 0.2)", text: "#ffbaba" }, // Burgundy Glass
+  { bg: "linear-gradient(to top, rgba(177, 18, 38, 0.2), rgba(177, 18, 38, 0.35))", border: "rgba(177, 18, 38, 0.5)", glow: "rgba(177, 18, 38, 0.35)", text: "#ffc9c9" }, // Hover Crimson Glass
+  { bg: "linear-gradient(to top, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.08))", border: "rgba(255, 255, 255, 0.15)", glow: "rgba(255, 255, 255, 0.05)", text: "#ffffff" }, // White Smoked Glass
+  { bg: "linear-gradient(to top, rgba(139, 0, 0, 0.15), rgba(94, 15, 24, 0.3))", border: "rgba(139, 0, 0, 0.4)", glow: "rgba(139, 0, 0, 0.2)", text: "#ffa3a3" }, // Crimson-Burgundy Mix
+  { bg: "linear-gradient(to top, rgba(94, 15, 24, 0.2), rgba(177, 18, 38, 0.3))", border: "rgba(177, 18, 38, 0.45)", glow: "rgba(177, 18, 38, 0.2)", text: "#ffbaba" }, // Burgundy-Crimson Mix
+  { bg: "linear-gradient(to top, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.05))", border: "rgba(255, 255, 255, 0.1)", glow: "rgba(255, 255, 255, 0.02)", text: "#e0e0e0" }, // Dark Smoked Glass
+  { bg: "linear-gradient(to top, rgba(139, 0, 0, 0.3), rgba(255, 255, 255, 0.03))", border: "rgba(139, 0, 0, 0.5)", glow: "rgba(139, 0, 0, 0.35)", text: "#ffb3b3" } // Deep Crimson Gradient Mix
 ];
 
 const getNodeTheme = (id) => {
@@ -641,7 +641,9 @@ export default function SortingSearchingVisualizer() {
           margin: '6px',
           minHeight: '60px',
           borderRadius: '8px',
-          background: isNodeActive ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+          background: isNodeActive ? 'rgba(17, 17, 17, 0.45)' : 'transparent',
+          backdropFilter: isNodeActive ? 'blur(40px)' : 'none',
+          WebkitBackdropFilter: isNodeActive ? 'blur(40px)' : 'none',
           border: isNodeActive 
             ? `1px solid ${node.theme.border}` 
             : '1px dashed rgba(255,255,255,0.08)',
@@ -651,7 +653,7 @@ export default function SortingSearchingVisualizer() {
           alignItems: 'center',
           justifyContent: 'center',
           transition: 'all 0.3s ease',
-          boxShadow: isNodeActive ? `0 0 10px ${node.theme.glow}` : 'none'
+          boxShadow: isNodeActive ? `0 8px 30px rgba(0, 0, 0, 0.6), 0 0 10px ${node.theme.glow}` : 'none'
         }}
       >
         <div style={{ display: 'flex', gap: '4px', justifyContent: 'center', width: '100%', flexWrap: 'nowrap' }}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Columns, Eye, Play, RotateCcw, AlertTriangle, HelpCircle, Expand, Maximize2, Minimize2 } from 'lucide-react';
+import { Columns, Eye, Play, RotateCcw, AlertTriangle, HelpCircle, Expand, Maximize2, Minimize2, Search } from 'lucide-react';
 import { executeCCode } from '../../interpreter/cInterpreter';
 
 // Custom Panels
@@ -160,19 +160,21 @@ int main() {
         borderRadius: 0,
         boxShadow: 'none',
         overflow: 'hidden',
-        backdropFilter: 'blur(25px)',
-        WebkitBackdropFilter: 'blur(25px)'
+        background: '#050505',
+        backdropFilter: 'blur(40px)',
+        WebkitBackdropFilter: 'blur(40px)'
       } : {
         display: 'flex',
         flexDirection: 'column',
         height: '80vh',
         width: '100%',
-        borderRadius: '16px',
+        borderRadius: '24px',
         border: '1px solid var(--glass-border)',
-        boxShadow: '0 24px 60px rgba(0, 0, 0, 0.4)',
+        boxShadow: '0 24px 60px rgba(0, 0, 0, 0.7)',
         overflow: 'hidden',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)'
+        background: '#050505',
+        backdropFilter: 'blur(40px)',
+        WebkitBackdropFilter: 'blur(40px)'
       }}
     >
       {/* IDE Top window Title bar */}
@@ -181,7 +183,7 @@ int main() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0.75rem 1.25rem',
-        background: 'rgba(0, 0, 0, 0.25)',
+        background: '#050505',
         borderBottom: '1px solid var(--glass-border)',
         userSelect: 'none'
       }}>
@@ -201,7 +203,8 @@ int main() {
             style={{ 
               padding: '0.35rem 0.6rem', 
               fontSize: '0.7rem', 
-              background: showExplorer ? 'rgba(59, 130, 246, 0.25)' : 'rgba(255,255,255,0.06)',
+              background: showExplorer ? 'rgba(139, 0, 0, 0.15)' : 'transparent',
+              border: '1px solid rgba(255,255,255,0.08)',
               borderColor: showExplorer ? 'var(--color-primary)' : 'var(--glass-border)',
               display: 'flex',
               alignItems: 'center',
@@ -219,8 +222,9 @@ int main() {
             style={{ 
               padding: '0.35rem 0.6rem', 
               fontSize: '0.7rem', 
-              background: showTerminal ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255,255,255,0.06)',
-              borderColor: 'var(--glass-border)',
+              background: showTerminal ? 'rgba(139, 0, 0, 0.15)' : 'transparent',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderColor: showTerminal ? 'var(--color-primary)' : 'var(--glass-border)',
               display: 'flex',
               alignItems: 'center',
               gap: '0.3rem',
@@ -237,8 +241,8 @@ int main() {
             style={{ 
               padding: '0.35rem 0.6rem', 
               fontSize: '0.7rem', 
-              background: 'rgba(255, 255, 255, 0.1)',
-              borderColor: 'var(--glass-border)',
+              background: 'transparent',
+              border: '1px solid rgba(255,255,255,0.08)',
               display: 'flex',
               alignItems: 'center',
               gap: '0.3rem',
@@ -253,12 +257,83 @@ int main() {
         </div>
       </div>
 
-      {/* Main Grid: Left Sidebar | Code Editor */}
+      {/* Main Grid: Activity Bar | Left Sidebar | Code Editor */}
       <div className="compiler-main-layout" style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
         
+        {/* VS Code Style Activity Bar */}
+        <div style={{
+          width: '48px',
+          background: '#050505',
+          borderRight: '1px solid var(--glass-border)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '0.75rem 0',
+          gap: '1.25rem',
+          userSelect: 'none',
+          zIndex: 5
+        }}>
+          {/* Explorer Tab Icon */}
+          <div 
+            onClick={() => setShowExplorer(!showExplorer)}
+            style={{
+              cursor: 'pointer',
+              color: showExplorer ? 'var(--color-primary)' : 'var(--text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              height: '32px',
+              borderLeft: showExplorer ? '2px solid var(--color-primary)' : '2px solid transparent',
+              transition: 'all 0.2s ease'
+            }}
+            title="Toggle Explorer"
+          >
+            <Columns size={18} />
+          </div>
+
+          {/* Search Shortcut Icon */}
+          <div 
+            onClick={() => alert('Search in project: Press Ctrl+K to trigger global LLM semantic search.')}
+            style={{
+              cursor: 'pointer',
+              color: 'var(--text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              height: '32px',
+              borderLeft: '2px solid transparent',
+              transition: 'all 0.2s ease'
+            }}
+            title="Search Files"
+          >
+            <Search size={18} />
+          </div>
+
+          {/* Compile & Run Icon */}
+          <div 
+            onClick={() => handleCompileAndRun()}
+            style={{
+              cursor: 'pointer',
+              color: 'var(--text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              height: '32px',
+              borderLeft: '2px solid transparent',
+              transition: 'all 0.2s ease'
+            }}
+            title="Run Code (Ctrl+Enter)"
+          >
+            <Play size={18} />
+          </div>
+        </div>
+
         {/* Left Sidebar (File Explorer) */}
         {showExplorer && (
-          <div className="compiler-explorer-sidebar" style={{ width: '220px', minWidth: '220px', height: '100%' }}>
+          <div className="compiler-explorer-sidebar" style={{ width: '220px', minWidth: '220px', height: '100%', background: '#0A0A0A', borderRight: '1px solid var(--glass-border)' }}>
             <FileExplorer 
               currentCode={code} 
               onSelectFile={setCode} 
@@ -268,8 +343,52 @@ int main() {
         )}
 
         {/* Center Workspace (Editor + Bottom Terminal Split) */}
-        <div className="compiler-editor-workspace" style={{ display: 'flex', flexDirection: 'column', flex: 1, height: '100%', overflow: 'hidden' }}>
+        <div className="compiler-editor-workspace" style={{ display: 'flex', flexDirection: 'column', flex: 1, height: '100%', overflow: 'hidden', background: '#111111' }}>
           
+          {/* VS Code Tabs Bar */}
+          <div style={{
+            display: 'flex',
+            background: '#050505',
+            borderBottom: '1px solid var(--glass-border)',
+            height: '35px',
+            alignItems: 'center',
+            userSelect: 'none'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0 1rem',
+              height: '100%',
+              background: '#111111',
+              borderRight: '1px solid var(--glass-border)',
+              borderTop: '2px solid var(--color-primary)',
+              fontSize: '0.75rem',
+              fontFamily: 'var(--font-code)',
+              fontWeight: '500',
+              color: '#ffffff',
+              gap: '0.5rem'
+            }}>
+              <span style={{ color: 'var(--color-primary)' }}>c</span>
+              <span>main.c</span>
+              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', cursor: 'pointer' }}>×</span>
+            </div>
+            
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0 1rem',
+              height: '100%',
+              fontSize: '0.75rem',
+              fontFamily: 'var(--font-code)',
+              color: 'var(--text-muted)',
+              gap: '0.5rem',
+              opacity: 0.6
+            }}>
+              <span>h</span>
+              <span>helpers.h</span>
+            </div>
+          </div>
+
           {/* Main Code Editor Panel */}
           <div style={{ flex: 1, overflow: 'hidden' }}>
             <CodeEditor
@@ -284,7 +403,7 @@ int main() {
 
           {/* Bottom Console / Terminal panel */}
           {showTerminal && (
-            <div className="compiler-terminal-container" style={{ height: '260px', minHeight: '260px' }}>
+            <div className="compiler-terminal-container" style={{ height: '260px', minHeight: '260px', borderTop: '1px solid var(--glass-border)' }}>
               <Terminal
                 consoleLogs={consoleLogs}
                 errors={errorsList}
@@ -311,7 +430,7 @@ int main() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0.6rem 1.25rem',
-        background: 'rgba(0,0,0,0.2)',
+        background: '#050505',
         borderTop: '1px solid var(--glass-border)',
         fontSize: '0.75rem',
         fontFamily: 'var(--font-code)'

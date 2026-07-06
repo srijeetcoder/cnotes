@@ -397,7 +397,7 @@ export default function App() {
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
         >
           <GraduationCap size={20} color="var(--color-primary)" />
-          <h1 style={{ fontSize: '1.4rem', fontWeight: '900', letterSpacing: '-0.06em', background: 'linear-gradient(to right, #3B82F6, #8B5CF6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <h1 style={{ fontSize: '1.4rem', fontWeight: '900', letterSpacing: '-0.06em', background: 'linear-gradient(to right, var(--color-primary), var(--color-warning))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             C
           </h1>
         </div>
@@ -646,7 +646,7 @@ export default function App() {
                           background: 'rgba(255, 255, 255, 0.01)',
                           borderColor: position === 0 ? 'var(--color-primary)' : 'rgba(255, 255, 255, 0.08)',
                           boxShadow: position === 0 
-                            ? '0 25px 60px rgba(59, 130, 246, 0.15)' 
+                            ? '0 25px 60px rgba(139, 0, 0, 0.2)' 
                             : '0 15px 35px rgba(0,0,0,0.3)',
                           borderRadius: '16px',
                           transform: `translateX(${translateX}) scale(${scale})`,
