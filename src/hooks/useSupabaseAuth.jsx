@@ -18,8 +18,9 @@ function useProvideAuth() {
 
   // Listen for auth changes – handles session persistence
   useEffect(() => {
-    // If Supabase is not configured, mark as not loading and return
+    // If Supabase is not configured, fallback to a local mock user for testing
     if (!supabase) {
+      setUser({ email: 'dev@example.com', id: 'dev-user-id' });
       setLoading(false);
       return;
     }
@@ -41,19 +42,28 @@ function useProvideAuth() {
   }, []);
 
   const signUp = async (email, password) => {
-    if (!supabase) throw new Error('Auth not configured');
+    if (!supabase) {
+      setUser({ email, id: 'dev-user-id' });
+      return;
+    }
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
   };
 
   const signIn = async (email, password) => {
-    if (!supabase) throw new Error('Auth not configured');
+    if (!supabase) {
+      setUser({ email, id: 'dev-user-id' });
+      return;
+    }
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
   };
 
   const signOut = async () => {
-    if (!supabase) return;
+    if (!supabase) {
+      setUser(null);
+      return;
+    }
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     setUser(null);
