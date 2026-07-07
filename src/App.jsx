@@ -19,130 +19,11 @@ import { chapters } from './data/syllabus';
 import confetti from 'canvas-confetti';
 import LLMSearch from './components/search/LLMSearch';
 
-const BG_MAIN_C = [
-  "#include <stdio.h>",
-  "#include <stdlib.h>",
-  "",
-  "// Recursive Fibonacci series generator",
-  "int fibonacci(int n) {",
-  "    if (n <= 1) return n;",
-  "    return fibonacci(n - 1) + fibonacci(n - 2);",
-  "}",
-  "",
-  "int main() {",
-  "    int limit = 12;",
-  "    printf(\"Fibonacci Sequence:\\n\");",
-  "    for (int i = 0; i < limit; i++) {",
-  "        printf(\"%d \", fibonacci(i));",
-  "    }",
-  "    printf(\"\\n\");",
-  "    ",
-  "    int* array = (int*)malloc(limit * sizeof(int));",
-  "    if (array != NULL) {",
-  "        array[0] = fibonacci(6);",
-  "        free(array);",
-  "    }",
-  "    return 0;",
-  "}"
-];
-
-const BG_LINKEDLIST_C = [
-  "#include <stdio.h>",
-  "#include <stdlib.h>",
-  "",
-  "typedef struct Node {",
-  "    int data;",
-  "    struct Node* next;",
-  "} Node;",
-  "",
-  "// Insert a Node at the beginning",
-  "Node* pushFront(Node* head, int value) {",
-  "    Node* newNode = (Node*)malloc(sizeof(Node));",
-  "    if (newNode == NULL) return head;",
-  "    newNode->data = value;",
-  "    newNode->next = head;",
-  "    return newNode;",
-  "}",
-  "",
-  "void displayList(Node* head) {",
-  "    Node* current = head;",
-  "    while (current != NULL) {",
-  "        printf(\"%d -> \", current->data);",
-  "        current = current->next;",
-  "    }",
-  "    printf(\"NULL\\n\");",
-  "}"
-];
-
-const BG_STACK_C = [
-  "#include <stdio.h>",
-  "#define CAPACITY 50",
-  "",
-  "typedef struct Stack {",
-  "    int data[CAPACITY];",
-  "    int topIndex;",
-  "} Stack;",
-  "",
-  "void initStack(Stack* s) {",
-  "    s->topIndex = -1;",
-  "}",
-  "",
-  "int isStackFull(Stack* s) {",
-  "    return s->topIndex == CAPACITY - 1;",
-  "}",
-  "",
-  "void pushStack(Stack* s, int val) {",
-  "    if (isStackFull(s)) {",
-  "        printf(\"Stack Overflow\\n\");",
-  "        return;",
-  "    }",
-  "    s->data[++(s->topIndex)] = val;",
-  "}"
-];
-
-const BG_HEAP_C = [
-  "#include <stdio.h>",
-  "#include <stdlib.h>",
-  "",
-  "void heap_demo() {",
-  "    int count = 10;",
-  "    // Dynamic heap allocations",
-  "    int* data = (int*)calloc(count, sizeof(int));",
-  "    if (data == NULL) {",
-  "        printf(\"Allocation Failed\\n\");",
-  "        return;",
-  "    }",
-  "    for (int i = 0; i < count; i++) {",
-  "        data[i] = i * i;",
-  "    }",
-  "    // Prevent memory leaks",
-  "    free(data);",
-  "    data = NULL;",
-  "}"
-];
-
-const BG_SORTING_C = [
-  "#include <stdio.h>",
-  "",
-  "void cellSwap(int* pointer1, int* pointer2) {",
-  "    int temporary = *pointer1;",
-  "    *pointer1 = *pointer2;",
-  "    *pointer2 = temporary;",
-  "}",
-  "",
-  "// QuickSort Array Partition",
-  "int runPartition(int arr[], int low, int high) {",
-  "    int pivotElement = arr[high];",
-  "    int i = (low - 1);",
-  "    for (int j = low; j < high; j++) {",
-  "        if (arr[j] < pivotElement) {",
-  "            i++;",
-  "            cellSwap(&arr[i], &arr[j]);",
-  "        }",
-  "    }",
-  "    cellSwap(&arr[i + 1], &arr[high]);",
-  "    return (i + 1);",
-  "}"
+const BACKGROUND_SNIPPETS = [
+  "printf(\"%d\", *ptr);", "malloc(sizeof(int) * 5)", "calloc(10, 4)", "realloc(arr, 20)",
+  "free(ptr); ptr = NULL;", "for(int i = 0; i < n; i++)", "while(*ptr != '\\0')",
+  "struct Student s1;", "int *ptr = &val;", "char str[100];", "scanf(\"%[^\\n]\", str);",
+  "#include <stdio.h>", "return 0;", "typedef struct Node Node;"
 ];
 
 export default function App() {
@@ -377,77 +258,116 @@ export default function App() {
         
         {/* Layer 3: Endless Scrolling VS Code Syntax highlighted code columns */}
         <div className="bg-code-scroll-container">
+          {/* Translucent Mockups of VS Code Windows */}
+          <div className="vscode-bg-mockup" style={{
+            position: 'absolute',
+            top: '12%',
+            left: '4%',
+            width: '420px',
+            height: '280px',
+            backgroundImage: 'url(/vscode_backdrop_mockup.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.20,
+            borderRadius: '8px',
+            filter: 'blur(0.5px)',
+            pointerEvents: 'none',
+            transform: 'rotate(-4deg)'
+          }} />
+
+          <div className="vscode-bg-mockup" style={{
+            position: 'absolute',
+            bottom: '15%',
+            right: '6%',
+            width: '480px',
+            height: '320px',
+            backgroundImage: 'url(/vscode_backdrop_mockup.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.18,
+            borderRadius: '8px',
+            filter: 'blur(0.5px)',
+            pointerEvents: 'none',
+            transform: 'rotate(5deg)'
+          }} />
           {[
-            { id: 1, fileName: "main.c", code: BG_MAIN_C, styleClass: "bg-code-layer-1" },
-            { id: 2, fileName: "linkedlist.c", code: BG_LINKEDLIST_C, styleClass: "bg-code-layer-2" },
-            { id: 3, fileName: "stack.c", code: BG_STACK_C, styleClass: "bg-code-layer-3" },
-            { id: 4, fileName: "heap.c", code: BG_HEAP_C, styleClass: "bg-code-layer-4" },
-            { id: 5, fileName: "sorting.c", code: BG_SORTING_C, styleClass: "bg-code-layer-5" }
-          ].map((layer) => {
-            const doubleCode = [...layer.code, ...layer.code, ...layer.code];
-            const finalLines = [...doubleCode, ...doubleCode];
-
+            { styleClass: 'bg-code-column' },
+            { styleClass: 'bg-code-column bg-code-column-reverse' },
+            { styleClass: 'bg-code-column bg-code-column-fast' }
+          ].map((col, cIdx) => {
+            const codeScaffold = [
+              "#include <stdio.h>",
+              "#include <stdlib.h>",
+              "",
+              "// Dynamic list node structure",
+              "struct Node {",
+              "    int val;",
+              "    struct Node* next;",
+              "};",
+              "",
+              "// Pointers Call by Reference swap",
+              "void swap(int *a, int *b) {",
+              "    int temp = *a;",
+              "    *a = *b;",
+              "    *b = temp;",
+              "}",
+              "",
+              "// Recursive stack function",
+              "int fib(int n) {",
+              "    if (n <= 1) return n;",
+              "    return fib(n - 1) + fib(n - 2);",
+              "}",
+              "",
+              "int main() {",
+              "    int x = 10, y = 20;",
+              "    swap(&x, &y);",
+              "    ",
+              "    int *arr = malloc(5 * sizeof(int));",
+              "    if (arr != NULL) {",
+              "        arr[0] = fib(6);",
+              "        printf(\"Fib value: %d\\n\", arr[0]);",
+              "        free(arr);",
+              "    }",
+              "    return 0;",
+              "}"
+            ];
+            const doubleCodeList = [...codeScaffold, ...codeScaffold, ...codeScaffold];
+            // Duplicate array to allow seamless scrolling loop (0 to -50%)
+            const finalLines = [...doubleCodeList, ...doubleCodeList];
+            
             return (
-              <div key={layer.id} className={`vscode-window-mock ${layer.styleClass}`}>
-                {/* Simulated VS Code Window Header */}
-                <div className="vscode-header-bar">
-                  <div className="vscode-dots">
-                    <span className="dot red"></span>
-                    <span className="dot yellow"></span>
-                    <span className="dot green"></span>
-                  </div>
-                  <div className="vscode-tab-container">
-                    <div className="vscode-tab active">
-                      <span className="tab-icon">c</span>
-                      <span className="tab-title">{layer.fileName}</span>
+              <div key={cIdx} className={col.styleClass}>
+                {finalLines.map((line, lIdx) => {
+                  let formatted = [];
+                  formatted.push(<span key="ln" className="syntax-ln">{String(lIdx % 35 + 1).padStart(2, '0')}</span>);
+                  
+                  if (line.trim().startsWith('//') || line.trim().startsWith('/*')) {
+                    formatted.push(<span key="comment" className="syntax-comment">{line}</span>);
+                  } else {
+                    const keywords = ['#include', '#define', 'struct', 'void', 'int', 'float', 'char', 'double', 'return', 'if', 'while', 'for', 'else', 'sizeof', 'free'];
+                    const functions = ['printf', 'scanf', 'malloc', 'calloc', 'realloc', 'fib', 'swap', 'main'];
+                    let words = line.split(/(\s+|,|\(|\)|\{|\}|;|\*|&)/);
+                    words.forEach((word, wIdx) => {
+                      if (keywords.includes(word.trim())) {
+                        formatted.push(<span key={wIdx} className="syntax-kw">{word}</span>);
+                      } else if (functions.includes(word.trim())) {
+                        formatted.push(<span key={wIdx} className="syntax-fn">{word}</span>);
+                      } else if (/^\d+$/.test(word.trim())) {
+                        formatted.push(<span key={wIdx} className="syntax-num">{word}</span>);
+                      } else if (word.startsWith('"') && word.endsWith('"')) {
+                        formatted.push(<span key={wIdx} className="syntax-str">{word}</span>);
+                      } else {
+                        formatted.push(word);
+                      }
+                    });
+                  }
+                  
+                  return (
+                    <div key={lIdx} style={{ padding: '0 0.5rem', minHeight: '1.6rem' }}>
+                      {formatted}
                     </div>
-                  </div>
-                </div>
-
-                {/* Editor Content area */}
-                <div className="vscode-editor-body">
-                  {finalLines.map((line, lIdx) => {
-                    let formatted = [];
-                    formatted.push(<span key="ln" className="syntax-ln">{String(lIdx % 50 + 1).padStart(2, '0')}</span>);
-                    
-                    if (line.trim().startsWith('//') || line.trim().startsWith('/*')) {
-                      formatted.push(<span key="comment" className="syntax-comment">{line}</span>);
-                    } else {
-                      const keywords = ['struct', 'void', 'int', 'float', 'char', 'double', 'return', 'if', 'while', 'for', 'else', 'sizeof', 'free', 'typedef'];
-                      const preprocessors = ['#include', '#define'];
-                      const types = ['Node', 'Stack'];
-                      const functions = ['printf', 'scanf', 'malloc', 'calloc', 'realloc', 'fibonacci', 'pushFront', 'displayList', 'initStack', 'isStackFull', 'pushStack', 'heap_demo', 'cellSwap', 'runPartition', 'main'];
-                      
-                      let words = line.split(/(\s+|,|\(|\)|\{|\}|;|\*|&)/);
-                      words.forEach((word, wIdx) => {
-                        const trimmed = word.trim();
-                        if (keywords.includes(trimmed)) {
-                          formatted.push(<span key={wIdx} className="syntax-kw">{word}</span>);
-                        } else if (preprocessors.includes(trimmed)) {
-                          formatted.push(<span key={wIdx} className="syntax-pre">{word}</span>);
-                        } else if (types.includes(trimmed)) {
-                          formatted.push(<span key={wIdx} className="syntax-type">{word}</span>);
-                        } else if (functions.includes(trimmed)) {
-                          formatted.push(<span key={wIdx} className="syntax-fn">{word}</span>);
-                        } else if (/^\d+$/.test(trimmed)) {
-                          formatted.push(<span key={wIdx} className="syntax-num">{word}</span>);
-                        } else if (word.startsWith('"') && word.endsWith('"')) {
-                          formatted.push(<span key={wIdx} className="syntax-str">{word}</span>);
-                        } else if (/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(trimmed) && trimmed !== 'c' && trimmed !== 'h') {
-                          formatted.push(<span key={wIdx} className="syntax-var">{word}</span>);
-                        } else {
-                          formatted.push(word);
-                        }
-                      });
-                    }
-                    
-                    return (
-                      <div key={lIdx} style={{ padding: '0 0.5rem', minHeight: '1.4rem' }}>
-                        {formatted}
-                      </div>
-                    );
-                  })}
-                </div>
+                  );
+                })}
               </div>
             );
           })}
@@ -477,7 +397,7 @@ export default function App() {
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
         >
           <GraduationCap size={20} color="var(--color-primary)" />
-          <h1 style={{ fontSize: '1.4rem', fontWeight: '900', letterSpacing: '-0.06em', background: 'linear-gradient(to right, var(--color-primary), var(--color-warning))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <h1 style={{ fontSize: '1.4rem', fontWeight: '900', letterSpacing: '-0.06em', background: 'linear-gradient(to right, #3B82F6, #8B5CF6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             C
           </h1>
         </div>
@@ -597,9 +517,7 @@ export default function App() {
                 void *ptr = malloc(32);<br/>free(ptr);
               </div>
 
-              <span className="badge badge-primary" style={{ alignSelf: 'center', padding: '0.4rem 1rem', borderRadius: '9999px', fontSize: '0.8rem' }}>
-                WWDC 2026 Developer Aesthetic
-              </span>
+
               
               <h2 className="hero-title">
                 Master C Programming from <br/>
@@ -624,15 +542,17 @@ export default function App() {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3rem', width: '100%' }}>
               <h3 style={{ fontSize: '2rem', textAlign: 'center', letterSpacing: '-0.03em' }}>Futuristic Interactive Learning</h3>
               
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                position: 'relative',
-                width: '100%', 
-                maxWidth: '900px',
-                height: '320px'
-              }}>
+              <div 
+                className="carousel-container"
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  position: 'relative',
+                  width: '100%', 
+                  maxWidth: '900px'
+                }}
+              >
                 {/* Left Arrow Button */}
                 <button 
                   onClick={() => setActiveSlide(prev => (prev === 0 ? 2 : prev - 1))}
@@ -684,26 +604,22 @@ export default function App() {
                     if (position < -1) position += 3;
                     if (position > 1) position -= 3;
                     
-                    let translateX = '0px';
                     let scale = 1;
                     let opacity = 1;
                     let zIndex = 2;
                     let filter = 'none';
 
                     if (position === -1) {
-                      translateX = '-220px';
                       scale = 0.85;
                       opacity = 0.35;
                       zIndex = 1;
                       filter = 'blur(1px)';
                     } else if (position === 1) {
-                      translateX = '220px';
                       scale = 0.85;
                       opacity = 0.35;
                       zIndex = 1;
                       filter = 'blur(1px)';
                     } else if (position === 0) {
-                      translateX = '0px';
                       scale = 1.05;
                       opacity = 1;
                       zIndex = 3;
@@ -726,10 +642,10 @@ export default function App() {
                           background: 'rgba(255, 255, 255, 0.01)',
                           borderColor: position === 0 ? 'var(--color-primary)' : 'rgba(255, 255, 255, 0.08)',
                           boxShadow: position === 0 
-                            ? '0 25px 60px rgba(139, 0, 0, 0.2)' 
+                            ? '0 25px 60px rgba(59, 130, 246, 0.15)' 
                             : '0 15px 35px rgba(0,0,0,0.3)',
                           borderRadius: '16px',
-                          transform: `translateX(${translateX}) scale(${scale})`,
+                          transform: `translateX(calc(${position} * var(--carousel-offset, 250px))) scale(${scale})`,
                           opacity: opacity,
                           zIndex: zIndex,
                           filter: filter,
